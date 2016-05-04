@@ -7,14 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.taskmanager.taskmanager.Model;
 import com.taskmanager.taskmanager.R;
-import com.taskmanager.taskmanager.actClasses.ActMain;
 import com.taskmanager.taskmanager.adapter.FragmentListAdapter;
+import com.taskmanager.taskmanager.notUI.MainListClass;
 import com.taskmanager.taskmanager.view.FloatingActionButton;
 
+import java.util.ArrayList;
+
 public class FragmentWithFabList extends CommonFragmentWithFab implements View.OnClickListener {
-    private ListView lvMainList;
+    private FragmentListAdapter adapter;
 
     @Nullable
     @Override
@@ -24,18 +25,29 @@ public class FragmentWithFabList extends CommonFragmentWithFab implements View.O
     }
 
     @Override
+    protected void initComponent() {
+
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        lvMainList = (ListView) view.findViewById(R.id.fragment_list_start_list_view);
-        lvMainList.setAdapter(new FragmentListAdapter(getActivity(), R.layout.list_item_main,
-                Model.newInstance().list));
+        adapter = new FragmentListAdapter(getActivity(), R.layout.list_item_main, new ArrayList<MainListClass>());
+        ((ListView) view.findViewById(R.id.fragment_list_start_list_view)).
+                setAdapter(adapter);
         fabButton.setFloatingActionButtonDrawable(getResources().getDrawable(R.drawable.ic_vector_add_black_48px));
+    }
+
+    @Override
+    public void onStart() {
         fabButton.setOnClickListener(this);
+        adapter.notifyDataSetChanged();
+        super.onStart();
     }
 
     @Override
     public void onClick(View v) {
         if (v instanceof FloatingActionButton) {
-            ((ActMain) getActivity()).showFragment(new FragmentWithFabCreateTask(), FragmentWithFabCreateTask.class.toString());
+//            getActMain().showFragment(new FragmentWithFabCreateTask(), true);
         }
     }
 }
