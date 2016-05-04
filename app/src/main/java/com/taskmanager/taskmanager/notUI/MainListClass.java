@@ -1,7 +1,11 @@
 package com.taskmanager.taskmanager.notUI;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 
 public class MainListClass {
     public String largeText;
@@ -9,6 +13,7 @@ public class MainListClass {
     public String dateText;
     public String timeText;
     public String addressText;
+    public static ArrayList<MainListClass> list;
 
     public MainListClass() {
     }
@@ -27,27 +32,8 @@ public class MainListClass {
     }
 
     public static ArrayList<MainListClass> getArrayOfMainClass() {
-        ArrayList<MainListClass> list = new ArrayList<>();
-        Calendar c = Calendar.getInstance();
-        int seconds = c.get(Calendar.SECOND);
-        int minuts = c.get(Calendar.MINUTE);
-        int hour = c.get(Calendar.HOUR);
-        int day = c.get(Calendar.DATE);
-        list.add(new MainListClass("some first large Text",
-                "some small first text",
-                "" + day,
-                hour + ":" + minuts + ":" + seconds + "AM",
-                "fffff"));
-        list.add(new MainListClass("some second large Text",
-                "some small second text",
-                "" + day,
-                hour + ":" + minuts + ":" + seconds + "AM",
-                "fffff"));
-        list.add(new MainListClass("aaasdasd ast",
-                "soms dasd s ext",
-                "" + day,
-                hour + ":" + minuts + ":" + seconds + "AM",
-                "fffff"));
+        if (list == null)
+            list = new ArrayList<>();
         return list;
     }
 }

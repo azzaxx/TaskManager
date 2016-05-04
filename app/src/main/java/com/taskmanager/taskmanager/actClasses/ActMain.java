@@ -1,18 +1,25 @@
 package com.taskmanager.taskmanager.actClasses;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 
+import com.taskmanager.taskmanager.ActMainModel;
+import com.taskmanager.taskmanager.ActMainPresenter;
 import com.taskmanager.taskmanager.R;
 import com.taskmanager.taskmanager.fragment.FragmentWithFabList;
+import com.taskmanager.taskmanager.interfacePackage.DaggerModelComponent;
+import com.taskmanager.taskmanager.interfacePackage.ModelComponent;
 import com.taskmanager.taskmanager.view.FloatingActionButton;
+
+import javax.inject.Inject;
 
 public class ActMain extends AppCompatActivity {
     private FloatingActionButton fabButton;
+    private ModelComponent mComponent;
+    @Inject
+    ActMainPresenter mActMainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +32,18 @@ public class ActMain extends AppCompatActivity {
                 .withMargins(0, 0, 16, 36)
                 .create();
 
+        initComponent();
+        mComponent.inject(this);
+        mActMainPresenter.bindView(this);
         if (savedInstanceState == null) {
-            showFragment(new FragmentWithFabList(), FragmentWithFabList.class.toString());
+            mActMainPresenter.showFragment(new FragmentWithFabList(), false);
         }
     }
 
-    public void showFragment(Fragment frg, String tag) {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.act_main_container, frg).addToBackStack(tag).commit();
+    protected void initComponent() {
+        mComponent = DaggerModelComponent.builder()
+                .model(new ActMainModel())
+                .build();
     }
 
     public FloatingActionButton getFabButton() {
@@ -41,11 +52,7 @@ public class ActMain extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        FragmentManager fm = this.getFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
-            fm.popBackStack();
-        } else {
+        if (mActMainPresenter.popBackStack())
             super.onBackPressed();
-        }
     }
 }

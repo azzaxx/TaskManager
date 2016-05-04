@@ -10,13 +10,20 @@ import android.view.ViewGroup;
 import com.taskmanager.taskmanager.actClasses.ActMain;
 import com.taskmanager.taskmanager.view.FloatingActionButton;
 
-public class CommonFragmentWithFab extends Fragment {
+public abstract class CommonFragmentWithFab extends Fragment {
     protected FloatingActionButton fabButton;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fabButton = ((ActMain)getActivity()).getFabButton();
+        initComponent();
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    protected abstract void initComponent();
+
+    public ActMain getActMain() {
+        return (ActMain) getActivity();
     }
 }
