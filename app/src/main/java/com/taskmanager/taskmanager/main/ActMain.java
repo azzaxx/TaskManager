@@ -1,16 +1,16 @@
-package com.taskmanager.taskmanager.actClasses;
+package com.taskmanager.taskmanager.main;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 
-import com.taskmanager.taskmanager.ActMainModel;
-import com.taskmanager.taskmanager.ActMainPresenter;
+import com.taskmanager.taskmanager.daggerModels.ActMainModel;
+import com.taskmanager.taskmanager.fragment.FragmentTaskList;
+import com.taskmanager.taskmanager.daggerPresenters.ActMainPresenter;
 import com.taskmanager.taskmanager.R;
-import com.taskmanager.taskmanager.fragment.FragmentWithFabList;
-import com.taskmanager.taskmanager.interfacePackage.DaggerModelComponent;
-import com.taskmanager.taskmanager.interfacePackage.ModelComponent;
+import com.taskmanager.taskmanager.daggerComponents.DaggerModelComponent;
+import com.taskmanager.taskmanager.daggerComponents.ModelComponent;
 import com.taskmanager.taskmanager.view.FloatingActionButton;
 
 import javax.inject.Inject;
@@ -32,17 +32,16 @@ public class ActMain extends AppCompatActivity {
                 .withMargins(0, 0, 16, 36)
                 .create();
 
-        initComponent();
-        mComponent.inject(this);
+        initComponent().inject(this);
         mActMainPresenter.bindView(this);
         if (savedInstanceState == null) {
-            mActMainPresenter.showFragment(new FragmentWithFabList(), false);
+            mActMainPresenter.showFragment(new FragmentTaskList(), false);
         }
     }
 
-    protected void initComponent() {
-        mComponent = DaggerModelComponent.builder()
-                .model(new ActMainModel())
+    protected ModelComponent initComponent() {
+        return mComponent = DaggerModelComponent.builder()
+                .actMainModel(new ActMainModel())
                 .build();
     }
 
@@ -54,5 +53,9 @@ public class ActMain extends AppCompatActivity {
     public void onBackPressed() {
         if (mActMainPresenter.popBackStack())
             super.onBackPressed();
+    }
+
+    public ActMainPresenter getActMainPresenter() {
+        return mActMainPresenter;
     }
 }

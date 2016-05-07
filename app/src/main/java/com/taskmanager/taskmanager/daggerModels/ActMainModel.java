@@ -1,5 +1,7 @@
-package com.taskmanager.taskmanager;
+package com.taskmanager.taskmanager.daggerModels;
 
+
+import com.taskmanager.taskmanager.daggerPresenters.ActMainPresenter;
 
 import dagger.Module;
 import dagger.Provides;

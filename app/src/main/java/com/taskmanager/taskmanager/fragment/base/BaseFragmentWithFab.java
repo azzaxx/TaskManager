@@ -1,4 +1,4 @@
-package com.taskmanager.taskmanager.fragment;
+package com.taskmanager.taskmanager.fragment.base;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.taskmanager.taskmanager.actClasses.ActMain;
+import com.taskmanager.taskmanager.main.ActMain;
 import com.taskmanager.taskmanager.view.FloatingActionButton;
 
-public abstract class CommonFragmentWithFab extends Fragment {
+public abstract class BaseFragmentWithFab extends Fragment {
     protected FloatingActionButton fabButton;
 
     @Nullable

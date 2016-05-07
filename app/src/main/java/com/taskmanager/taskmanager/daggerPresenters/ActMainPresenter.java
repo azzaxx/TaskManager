@@ -1,9 +1,10 @@
-package com.taskmanager.taskmanager;
+package com.taskmanager.taskmanager.daggerPresenters;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 
-import com.taskmanager.taskmanager.actClasses.ActMain;
+import com.taskmanager.taskmanager.R;
+import com.taskmanager.taskmanager.main.ActMain;
 
 import javax.inject.Inject;
 

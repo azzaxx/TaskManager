@@ -8,14 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.taskmanager.taskmanager.R;
-import com.taskmanager.taskmanager.notUI.MainListClass;
+import com.taskmanager.taskmanager.notUI.TaskHolder;
 
 import java.util.ArrayList;
 
-public class FragmentListAdapter extends ArrayAdapter<MainListClass> {
-    private ArrayList<MainListClass> myList;
+public class TaskListAdapter extends ArrayAdapter<TaskHolder> {
+    private ArrayList<TaskHolder> myList;
 
-    public FragmentListAdapter(Context context, int resource, ArrayList<MainListClass> myList) {
+    public TaskListAdapter(Context context, int resource, ArrayList<TaskHolder> myList) {
         super(context, resource, myList);
         this.myList = myList;
     }
