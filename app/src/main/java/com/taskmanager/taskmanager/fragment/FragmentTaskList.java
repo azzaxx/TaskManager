@@ -40,7 +40,7 @@ public class FragmentTaskList extends BaseFragmentWithFab implements View.OnClic
     protected void initComponent() {
         mComponent = DaggerListModelComponent.builder()
                 .fragmentPresenterModel(new FragmentPresenterModel())
-                .listViewModel(new TaskHolderModel())
+                .taskHolderModel(new TaskHolderModel())
                 .build();
     }
 

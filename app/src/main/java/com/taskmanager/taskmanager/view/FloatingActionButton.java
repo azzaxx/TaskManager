@@ -1,4 +1,5 @@
 package com.taskmanager.taskmanager.view;
+
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -64,15 +65,15 @@ public class FloatingActionButton extends View {
                 (getHeight() - mBitmap.getHeight()) / 2, mDrawablePaint);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            setAlpha(1.0f);
-        } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            setAlpha(0.6f);
-        }
-        return super.onTouchEvent(event);
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        if (event.getAction() == MotionEvent.ACTION_UP) {
+//            setAlpha(1.0f);
+//        } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//            setAlpha(0.6f);
+//        }
+//        return super.onTouchEvent(event);
+//    }
 
     public void hideFloatingActionButton() {
         if (!mHidden) {
@@ -180,8 +181,8 @@ public class FloatingActionButton extends View {
         // The calculation (value * scale + 0.5f) is a widely used to convert to dps to pixel units
         // based on density scale
         // see developer.android.com (Supporting Multiple Screen Sizes)
-        private int convertToPixels(int dp, float scale){
-            return (int) (dp * scale + 0.5f) ;
+        private int convertToPixels(int dp, float scale) {
+            return (int) (dp * scale + 0.5f);
         }
     }
 }

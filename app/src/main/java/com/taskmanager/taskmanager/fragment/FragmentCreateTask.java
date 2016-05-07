@@ -36,7 +36,7 @@ public class FragmentCreateTask extends BaseFragmentWithFab implements View.OnCl
     @Override
     protected void initComponent() {
         mComponent = DaggerCreateTaskFragmentComponent.builder()
-                .listViewModel(new TaskHolderModel())
+                .taskHolderModel(new TaskHolderModel())
                 .createTaskFragmentPresenterModel(new CreateTaskFragmentPresenterModel())
                 .build();
     }

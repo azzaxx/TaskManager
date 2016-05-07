@@ -5,12 +5,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/image_background">
 
+    <View
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/view2" />
+
     <ListView
         android:id="@+id/fragment_list_start_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="5dp"
-        tools:listitem="@layout/list_item_main">
+        tools:listitem="@layout/list_item_main"
+        android:layout_above="@+id/view"
+        android:layout_below="@+id/view2">
 
     </ListView>
 
@@ -20,5 +28,5 @@
         android:layout_height="72dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="#236467" />
+        android:background="@color/black" />
 </RelativeLayout>
