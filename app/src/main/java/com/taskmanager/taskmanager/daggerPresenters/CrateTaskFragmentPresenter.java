@@ -14,14 +14,14 @@ public class CrateTaskFragmentPresenter {
         this.fragment = fragment;
     }
 
-    public TaskHolder addListItem() {
+    public TaskHolder addListItem(String headerText, String descriptionText) {
         Calendar c = Calendar.getInstance();
         int seconds = c.get(Calendar.SECOND);
         int minuts = c.get(Calendar.MINUTE);
         int hour = c.get(Calendar.HOUR);
         int day = c.get(Calendar.DATE);
-        return new TaskHolder("Save save",
-                "some small first text",
+        return new TaskHolder(headerText.isEmpty() ? "Task without header" : headerText,
+                descriptionText.isEmpty() ? "Task without description" : descriptionText,
                 "" + day,
                 hour + ":" + minuts + ":" + seconds + "AM",
                 "fffff");

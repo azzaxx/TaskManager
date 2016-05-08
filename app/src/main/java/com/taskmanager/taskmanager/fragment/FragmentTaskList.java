@@ -5,18 +5,18 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.taskmanager.taskmanager.R;
-import com.taskmanager.taskmanager.fragment.base.BaseFragmentWithFab;
-import com.taskmanager.taskmanager.main.ActMain;
 import com.taskmanager.taskmanager.adapter.TaskListAdapter;
 import com.taskmanager.taskmanager.daggerComponents.DaggerListModelComponent;
 import com.taskmanager.taskmanager.daggerComponents.ListModelComponent;
 import com.taskmanager.taskmanager.daggerModels.FragmentPresenterModel;
 import com.taskmanager.taskmanager.daggerModels.TaskHolderModel;
-import com.taskmanager.taskmanager.notUI.TaskHolder;
 import com.taskmanager.taskmanager.daggerPresenters.FragmentListPresenter;
+import com.taskmanager.taskmanager.fragment.base.BaseFragmentWithFab;
+import com.taskmanager.taskmanager.main.ActMain;
+import com.taskmanager.taskmanager.notUI.TaskHolder;
 
 import javax.inject.Inject;
 
@@ -27,6 +27,7 @@ public class FragmentTaskList extends BaseFragmentWithFab implements View.OnClic
     FragmentListPresenter mPresenter;
     @Inject
     TaskHolder taskHolder;
+    protected SwipeMenuListView listView;
 
     @Nullable
     @Override
@@ -48,8 +49,8 @@ public class FragmentTaskList extends BaseFragmentWithFab implements View.OnClic
     public void onViewCreated(View view, Bundle savedInstanceState) {
         mPresenter.addView(this);
         adapter = new TaskListAdapter(getActivity(), R.layout.list_item_main, taskHolder.getArrayOfTasks());
-        ((ListView) view.findViewById(R.id.fragment_list_start_list_view)).
-                setAdapter(adapter);
+        listView = (SwipeMenuListView) view.findViewById(R.id.fragment_list_start_list_view);
+        mPresenter.initListView(listView).setAdapter(adapter);
         fabButton.setFloatingActionButtonDrawable(getResources().getDrawable(R.drawable.ic_vector_add_black_48px));
     }
 
@@ -62,6 +63,6 @@ public class FragmentTaskList extends BaseFragmentWithFab implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        ((ActMain)getActivity()).getActMainPresenter().showFragment(new FragmentCreateTask(), true);
+        ((ActMain) getActivity()).getActMainPresenter().showFragment(new FragmentCreateTask(), true);
     }
 }

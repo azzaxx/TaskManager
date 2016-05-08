@@ -5,15 +5,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.taskmanager.taskmanager.R;
 import com.taskmanager.taskmanager.daggerComponents.CreateTaskFragmentComponent;
 import com.taskmanager.taskmanager.daggerComponents.DaggerCreateTaskFragmentComponent;
 import com.taskmanager.taskmanager.daggerModels.CreateTaskFragmentPresenterModel;
 import com.taskmanager.taskmanager.daggerModels.TaskHolderModel;
+import com.taskmanager.taskmanager.daggerPresenters.CrateTaskFragmentPresenter;
 import com.taskmanager.taskmanager.fragment.base.BaseFragmentWithFab;
 import com.taskmanager.taskmanager.notUI.TaskHolder;
-import com.taskmanager.taskmanager.daggerPresenters.CrateTaskFragmentPresenter;
 import com.taskmanager.taskmanager.view.FloatingActionButton;
 
 import javax.inject.Inject;
@@ -24,6 +25,7 @@ public class FragmentCreateTask extends BaseFragmentWithFab implements View.OnCl
     TaskHolder taskHolder;
     @Inject
     CrateTaskFragmentPresenter mPresenter;
+    protected EditText etHeader, etDescription;
 
     @Nullable
     @Override
@@ -45,8 +47,10 @@ public class FragmentCreateTask extends BaseFragmentWithFab implements View.OnCl
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.addView(this);
-        fabButton.setFloatingActionButtonDrawable(getResources().getDrawable(R.drawable.ic_vector_done_black_48px));
+        fabButton.setFloatingActionButtonDrawable(getResources().getDrawable(R.drawable.ic_vector_done_white_48px));
         fabButton.setOnClickListener(this);
+        etHeader = (EditText) view.findViewById(R.id.fragment_create_task_edit_text_header);
+        etDescription = (EditText) view.findViewById(R.id.fragment_create_task_edit_text_description);
     }
 
     @Override
@@ -58,7 +62,9 @@ public class FragmentCreateTask extends BaseFragmentWithFab implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v instanceof FloatingActionButton) {
-            taskHolder.getArrayOfTasks().add(mPresenter.addListItem());
+            taskHolder.getArrayOfTasks().add(mPresenter.addListItem(
+                    etHeader.getText().toString(),
+                    etDescription.getText().toString()));
             getFragmentManager().popBackStack();
         }
     }
